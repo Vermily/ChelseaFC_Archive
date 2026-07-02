@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "696623790297",
+    "project_id": "chelsea-app-7f916",
+    "storage_bucket": "chelsea-app-7f916.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696623790297:android:e92a45e3a544ee54d2a6c8",
+        "android_client_info": {
+          "package_name": "com.example.fpl_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI4rDqMWmpLtBKw_Ch1wOmq2B4Br0FHxY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

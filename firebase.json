@@ -1,0 +1,35 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+    ,
+    "headers": [
+      {
+        "source": "/legends/**",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET, HEAD, OPTIONS" }
+        ]
+      },
+      {
+        "source": "/kits/**",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET, HEAD, OPTIONS" }
+        ]
+      }
+      ,
+      {
+        "source": "/trophies/**",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET, HEAD, OPTIONS" }
+        ]
+      }
+    ]
+  }
+}

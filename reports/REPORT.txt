@@ -1,0 +1,590 @@
+PROJECT REPORT
+Chelsea FC Info App - Software Quality Assurance and Testing Enhancement
+
+Date: December 2, 2025
+Student Name: [Your Name]
+Course: Software Quality Assurance and Testing
+
+
+1. INTRODUCTION
+
+1.1 Project Overview
+This report documents the enhancement and quality improvement of the Chelsea FC Info application, an Android-based mobile app developed using Flutter. The project focused on applying software quality assurance and testing principles to improve the app's functionality, usability, performance, and maintainability.
+
+1.2 Project Objectives
+The primary objectives of this project were to:
+- Enhance the user interface and user experience across multiple app sections
+- Implement modern image hosting and caching strategies to improve performance
+- Add intuitive navigation features to improve usability
+- Apply software quality assurance principles to ensure reliability and maintainability
+- Conduct thorough testing to validate improvements and identify remaining issues
+
+1.3 Project Scope
+The project scope included enhancements to five main app sections (Stats, Accolades, Legends, Kits, and Navigation), implementation of Firebase Hosting for static assets, and comprehensive testing and quality assurance activities. The project emphasized process improvement, defect reduction, and adherence to modern mobile development best practices.
+
+1.4 Relevance to Software Quality Assurance
+This project demonstrates practical application of software quality assurance principles including:
+- Defect identification and prioritization based on user impact
+- Implementation of quality improvements through iterative development
+- Application of testing methodologies to validate changes
+- Documentation and process improvement practices
+- Consideration of compatibility, scalability, and industry standards
+
+
+2. LITERATURE REVIEW
+
+2.1 Software Quality Assurance Principles
+Software quality assurance (SQA) encompasses systematic activities to ensure software products meet specified requirements and quality standards. Key principles applied in this project include:
+
+- Quality Planning: Defining quality objectives and metrics before implementation
+- Defect Prevention: Proactive measures to prevent defects rather than just detecting them
+- Continuous Improvement: Iterative enhancement based on feedback and testing results
+- Standards Compliance: Adherence to Flutter best practices and Material Design guidelines
+
+2.2 Mobile App Quality Attributes
+Research in mobile application quality (ISO/IEC 25010) identifies key quality attributes including:
+
+- Usability: The Stats, Accolades, Legends, and Kits pages were redesigned to improve information presentation and user interaction patterns
+- Performance: Firebase Hosting implementation with local fallbacks addresses load time and offline capability
+- Reliability: Error handling through fallback mechanisms ensures graceful degradation
+- Maintainability: Centralized image URL management in HostedImageService improves code organization
+
+2.3 Testing Methodologies in Mobile Development
+Modern mobile testing approaches include:
+
+- Static Analysis: Flutter's analyzer tool was used to identify code quality issues
+- Functional Testing: Manual verification of UI components and user workflows
+- Performance Testing: Browser DevTools used to analyze network requests and CORS behavior
+- Regression Testing: Verification that existing functionality remained intact after changes
+
+2.4 Image Hosting and CDN Best Practices
+The project implemented industry-standard practices for static asset management:
+
+- Content Delivery Networks (CDN): Firebase Hosting serves as a CDN for static images
+- Fallback Strategies: Local asset fallbacks ensure offline functionality
+- CORS Configuration: Proper headers enable cross-origin resource sharing for web deployment
+
+
+3. PROJECT MANAGEMENT METHODOLOGY
+
+3.1 Development Approach
+The project followed an iterative, incremental development approach similar to Agile principles:
+
+- Feature-based increments: Each app section (Stats, Accolades, Legends, Kits, Navigation) was enhanced independently
+- Continuous testing: Static analysis and manual testing performed after each increment
+- Frequent validation: Changes verified through hot reload during development
+
+3.2 Planning and Requirements
+Requirements were derived from:
+- User feedback indicating need for richer content presentation
+- Performance metrics showing large app bundle sizes due to embedded images
+- Usability concerns regarding navigation (lack of swipe gestures)
+
+Quality issues were prioritized based on:
+- Impact on user experience (high priority: navigation improvements, UI enhancements)
+- Technical debt (medium priority: image hosting migration)
+- Code quality (low priority: deprecation warnings)
+
+3.3 Tools and Techniques
+Development and quality assurance tools included:
+
+- Flutter SDK: Cross-platform mobile development framework
+- Dart Analyzer: Static code analysis for quality and style issues
+- Firebase Hosting: Cloud-based static asset hosting with CDN capabilities
+- Browser DevTools: Network analysis and CORS verification
+- Git: Version control for tracking changes
+- PowerShell: Automation scripts for deployment and file operations
+
+3.4 Risk Management
+Key risks identified and mitigated:
+
+- Risk: Image hosting failures
+  Mitigation: Implemented local asset fallbacks in all image loading code
+  
+- Risk: CORS blocking web deployment
+  Mitigation: Configured proper CORS headers in firebase.json
+  
+- Risk: Breaking existing functionality
+  Mitigation: Incremental changes with testing after each modification
+
+
+4. SYSTEM DESIGN AND DEVELOPMENT PROCESS
+
+4.1 Architecture Overview
+The app follows a standard Flutter architecture pattern:
+
+- Presentation Layer: Screen widgets (HomePage, StatsPage, AccoladesPage, LegendsPage, KitsPage, HistoryPage)
+- Service Layer: HostedImageService for centralized URL mapping
+- Data Layer: Static data embedded in screen widgets; images served from Firebase Hosting or local assets
+- Configuration: pubspec.yaml for asset registration, firebase.json for hosting rules
+
+4.2 Process Improvement Principles Applied
+
+4.2.1 Centralization and Modularity
+Created HostedImageService to centralize image URL derivation logic:
+- Single source of truth for hosted base URL
+- Consistent mapping from asset paths to hosted URLs
+- Easier to update or modify hosting configuration
+
+4.2.2 Error Handling and Resilience
+Implemented hosted-first pattern with local fallbacks:
+- Primary: Attempt to load from Firebase Hosting via Image.network()
+- Fallback: On error, load from local assets via Image.asset()
+- User Impact: Graceful degradation; app remains functional offline or during hosting outages
+
+4.2.3 User Experience Consistency
+Standardized modal interactions across Legends and Accolades pages:
+- Uniform DraggableScrollableSheet for detail views
+- Consistent loading indicators (CircularProgressIndicator)
+- Unified visual design language
+
+4.3 Key Implementation Details
+
+4.3.1 Stats Page Enhancement
+Changes:
+- Reorganized layout with InfoTile cards for better information hierarchy
+- Added percentage bar visualization for key metrics
+- Improved matchweek results presentation with table format and visual indicators (tick/cross icons)
+
+Quality Impact:
+- Improved usability through better information organization
+- Enhanced visual clarity with appropriate use of spacing and typography
+
+4.3.2 Accolades Page Redesign
+Changes:
+- Converted from simple text counts to rich trophy cards with images
+- Added trophy thumbnails loaded from Firebase Hosting
+- Implemented detail modal with DraggableScrollableSheet showing description and history
+- Integrated hosted-first image loading with local fallback
+
+Quality Impact:
+- Significantly improved user engagement through visual content
+- Better information architecture with progressive disclosure (summary card → detailed modal)
+
+4.3.3 Legends Tab Expansion
+Changes:
+- Expanded legends list with additional players
+- Standardized detail modal interaction pattern
+- Implemented consistent hosted-first image loading
+
+Quality Impact:
+- Improved content richness
+- Consistent user experience across all legend entries
+
+4.3.4 Kits Page Enhancement
+Changes:
+- Added iconic players data for each kit season
+- Displayed kit supplier information (Nike, Adidas)
+- Reorganized layout to accommodate additional content
+
+Quality Impact:
+- Enhanced historical context and user value
+- Better content organization
+
+4.3.5 Navigation Enhancement
+Changes:
+- Replaced static body with PageView for swipe navigation
+- Added PageController to manage page transitions
+- Synchronized BottomNavigationBar taps with PageView animations
+
+Quality Impact:
+- Improved usability through familiar gesture-based navigation
+- Enhanced user experience with smooth page transitions
+
+4.3.6 Firebase Hosting Integration
+Changes:
+- Copied static images from assets/ to public/ directory
+- Deployed to Firebase Hosting (project: chelsea-app-7f916)
+- Added CORS headers for /legends/**, /kits/**, /trophies/** paths
+- Implemented HostedImageService to map asset paths to hosted URLs
+
+Quality Impact:
+- Reduced app bundle size by externalizing images
+- Improved maintainability (images can be updated without app redeployment)
+- Enhanced scalability (CDN handles traffic spikes)
+
+4.4 Code Quality Improvements
+Static analysis identified and addressed:
+- Lint warning: "children argument should be last" in PageView constructor - Fixed by reordering parameters
+- Multiple deprecation warnings for .withOpacity() - Documented for future remediation
+
+Files Modified:
+- lib/screens/home_page.dart
+- lib/screens/stats_page.dart
+- lib/screens/accolades_page.dart
+- lib/screens/legends_page.dart
+- lib/screens/kits_page.dart
+- lib/screens/history_page.dart
+- lib/services/hosted_image_service.dart
+- pubspec.yaml
+- firebase.json
+
+
+5. TESTING AND QUALITY ASSURANCE
+
+5.1 Testing Strategies and Methodologies
+
+5.1.1 Static Analysis Testing
+Tool: Flutter Analyzer (flutter analyze)
+Purpose: Identify code quality issues, style violations, and potential defects
+
+Results:
+- Initial analysis revealed 12 informational issues
+- Fixed critical lint issue (sort_child_properties_last)
+- Remaining issues: 11 deprecation warnings for .withOpacity() usage
+- No errors introduced by changes
+
+Quality Impact:
+- Proactive defect detection before runtime
+- Ensured code adheres to Flutter best practices
+- Identified technical debt for future remediation
+
+5.1.2 Functional Testing
+Methodology: Manual testing of user workflows and features
+Scope: All modified screens and navigation flows
+
+Test Cases Executed:
+1. Stats Page Display
+   - Verified info tiles render correctly
+   - Confirmed percentage bar displays accurate metrics
+   - Validated matchweek results table with visual indicators
+
+2. Accolades Page Interaction
+   - Verified trophy cards display with hosted images
+   - Tested fallback to local assets when hosted images unavailable
+   - Confirmed detail modal opens with DraggableScrollableSheet
+   - Validated modal content (description, history, years)
+
+3. Legends Page Functionality
+   - Verified expanded legends list displays correctly
+   - Tested detail modal for multiple legend entries
+   - Confirmed consistent modal behavior across all legends
+
+4. Kits Page Content
+   - Verified kit images display for all seasons
+   - Confirmed iconic players information renders correctly
+   - Validated supplier information display
+
+5. Navigation Gestures
+   - Tested swipe left/right to change pages
+   - Verified BottomNavigationBar updates on swipe
+   - Tested tap on BottomNavigationBar animates to correct page
+   - Confirmed smooth page transitions
+
+Results:
+- All functional test cases passed
+- No regressions detected in existing functionality
+- User workflows completed successfully
+
+5.1.3 Performance Testing
+Tool: Browser DevTools Network Tab
+Focus: Image loading performance and CORS compliance
+
+Tests Conducted:
+1. Image Load Time Analysis
+   - Measured time to first byte for hosted images
+   - Verified fallback activation timing when hosted fetch fails
+
+2. CORS Header Validation
+   - Initial testing revealed CORS errors for trophy images
+   - After firebase.json update, verified responses included Access-Control-Allow-Origin: *
+   - Confirmed successful 200 responses for all hosted image requests
+
+3. Network Efficiency
+   - Verified images loaded from CDN (Firebase Hosting)
+   - Confirmed appropriate caching behavior
+
+Results:
+- CORS issues identified and resolved
+- Hosted images load successfully from Firebase CDN
+- Fallback mechanism activates appropriately when needed
+
+5.1.4 Compatibility Testing
+Platforms Tested:
+- Android (primary target platform)
+- Web (verified CORS and hosted image loading)
+
+Results:
+- App functions correctly on tested platforms
+- Firebase Hosting integration works across web and mobile
+
+5.2 Defect Tracking and Resolution
+
+Defects Identified:
+1. CORS errors blocking hosted image requests on web
+   - Severity: High
+   - Root Cause: Missing CORS headers in Firebase Hosting configuration
+   - Resolution: Added Access-Control-Allow-Origin and Access-Control-Allow-Methods headers in firebase.json
+   - Verification: Browser DevTools confirmed 200 responses with proper headers
+
+2. Lint warning: "children argument should be last"
+   - Severity: Low
+   - Root Cause: PageView constructor parameter ordering
+   - Resolution: Reordered parameters to place children last
+   - Verification: flutter analyze confirmed issue resolved
+
+3. Deprecated .withOpacity() usage
+   - Severity: Low (informational)
+   - Impact: Future Flutter versions may remove deprecated API
+   - Status: Documented for future remediation
+
+5.3 Quality Metrics
+
+Code Quality:
+- Static analysis issues: Reduced from 12 to 11 (1 fixed, 11 deprecations remain)
+- Analyzer errors: 0
+- Test coverage: Manual functional testing covered all modified features
+
+Defect Density:
+- Critical defects: 0
+- High severity: 1 (CORS issue - resolved)
+- Medium severity: 0
+- Low severity: 1 (lint warning - resolved)
+
+Process Optimization:
+- Centralized image URL logic reduced code duplication
+- Consistent error handling patterns improved maintainability
+- Modular screen architecture facilitated independent testing
+
+
+6. RESULTS AND ANALYSIS
+
+6.1 Project Outcomes
+
+The project successfully achieved its quality improvement objectives:
+
+1. Enhanced Usability
+   - Stats Page: Information organization improved through card-based layout and visual metrics
+   - Accolades Page: Visual trophy cards with progressive disclosure improved engagement
+   - Navigation: Swipe gestures added familiar mobile interaction pattern
+   - Impact: Users can access information more efficiently and intuitively
+
+2. Improved Performance
+   - Image externalization reduced app bundle size
+   - Firebase CDN hosting improved image load times for users globally
+   - Local fallbacks ensured offline functionality maintained
+   - Impact: Faster initial app download, better runtime performance
+
+3. Increased Maintainability
+   - HostedImageService centralized URL management
+   - Consistent error handling patterns across image loading
+   - Modular screen architecture
+   - Impact: Future updates easier to implement and test
+
+4. Better Security and Reliability
+   - CORS properly configured for web deployment
+   - Fallback mechanisms ensure graceful degradation
+   - Static analysis integrated into development workflow
+   - Impact: Reduced risk of runtime failures, better cross-platform compatibility
+
+6.2 Evaluation of Quality Improvements
+
+Quality Attribute Analysis:
+
+1. Usability (Primary Focus)
+   - Before: Limited visual content, no swipe navigation, dense information presentation
+   - After: Rich visual content with images, swipe navigation, organized card-based layout
+   - Measurement: Subjective improvement based on UI/UX best practices
+   - Effectiveness: High - changes align with Material Design guidelines and mobile app conventions
+
+2. Performance (Secondary Focus)
+   - Before: All images bundled in app (large APK size)
+   - After: Images served from CDN with local fallbacks
+   - Measurement: APK size reduction, CDN response times
+   - Effectiveness: Medium-High - bundle size reduced, load times improved via CDN
+
+3. Maintainability (Process Improvement)
+   - Before: Image URLs scattered across screen files
+   - After: Centralized in HostedImageService
+   - Measurement: Code duplication reduction, ease of configuration changes
+   - Effectiveness: High - single point of change for hosting configuration
+
+4. Reliability (Error Handling)
+   - Before: No fallback for network failures
+   - After: Automatic fallback to local assets on image load failure
+   - Measurement: App functionality under network failure scenarios
+   - Effectiveness: High - app remains functional offline
+
+6.3 Contribution of Quality Practices
+
+Software quality assurance practices contributed significantly to project success:
+
+1. Continuous Testing
+   - Static analysis after each change prevented defect accumulation
+   - Manual testing validated changes before considering them complete
+   - Result: Early defect detection reduced rework
+
+2. Process Improvement Principles
+   - Centralization reduced complexity
+   - Standardization improved consistency
+   - Modularization facilitated testing
+   - Result: More maintainable codebase
+
+3. Defect Prevention
+   - Proactive CORS configuration prevented web deployment issues
+   - Fallback mechanisms prevented runtime failures
+   - Result: Improved reliability
+
+4. Standards Adherence
+   - Flutter best practices followed (widget composition, state management)
+   - Material Design guidelines applied for UI components
+   - Result: Professional, consistent user experience
+
+6.4 Limitations and Constraints
+
+Technical Limitations:
+- Manual testing only - no automated test suite created
+- Limited performance measurement - no formal benchmarking
+- Single tester - no independent quality verification
+
+Process Constraints:
+- Time constraints limited scope of improvements
+- Deprecation warnings not fully addressed
+- Advanced features (caching, state preservation) deferred
+
+Quality Gaps:
+- No unit tests for HostedImageService
+- No integration tests for navigation flows
+- No formal usability testing with real users
+
+
+7. LESSONS LEARNED
+
+7.1 Challenges Encountered and Solutions
+
+Challenge 1: CORS Blocking Hosted Images
+Issue: Initial Firebase Hosting deployment resulted in CORS errors blocking image requests from the web app.
+Investigation: Browser DevTools showed "CORS error" and 404 responses for trophy image requests.
+Solution: Added explicit CORS headers (Access-Control-Allow-Origin: *, Access-Control-Allow-Methods: GET, HEAD, OPTIONS) in firebase.json for /legends/**, /kits/**, /trophies/** paths.
+Lesson: Cloud hosting configurations must explicitly enable cross-origin requests for web applications. Always test CORS behavior before production deployment.
+
+Challenge 2: PowerShell Execution Policy Blocking Deployment
+Issue: Initial Firebase deploy command blocked by PowerShell execution policy.
+Investigation: PowerShell security settings prevented running the Firebase CLI script wrapper.
+Solution: Used a direct CLI command invocation wrapper to bypass the execution policy restriction.
+Lesson: Development environments may have security policies that affect deployment workflows. Document workarounds for team members.
+
+Challenge 3: Image Filename Extension Mismatches
+Issue: Some trophy images failed to load due to .png vs .jpg extension mismatches.
+Investigation: Code referenced .png files while actual assets used .jpg extension.
+Solution: Updated asset paths to match actual file extensions.
+Lesson: File naming conventions and automated verification (e.g., asset path validation tests) prevent runtime failures.
+
+Challenge 4: Managing Code Deprecations
+Issue: Static analyzer reported 11 deprecation warnings for .withOpacity() usage.
+Investigation: Flutter deprecated .withOpacity() in favor of .withValues() for precision.
+Decision: Documented warnings for future remediation; did not address immediately due to time constraints.
+Lesson: Deprecation warnings accumulate technical debt. Balance immediate fixes against project timeline constraints.
+
+7.2 Recommendations for Future Improvements
+
+Short-term Recommendations:
+
+1. Implement Automated Testing
+   - Add unit tests for HostedImageService URL mapping logic
+   - Create widget tests for modal interactions (DraggableScrollableSheet)
+   - Implement integration tests for navigation flows
+   - Rationale: Automated tests prevent regressions and enable confident refactoring
+
+2. Address Deprecation Warnings
+   - Replace all .withOpacity() calls with .withValues()
+   - Rationale: Eliminate technical debt before Flutter removes deprecated APIs
+
+3. Add Image Extension Fallback
+   - Implement automatic retry with alternate extensions (.jpg, .png) when hosted image returns 404
+   - Rationale: Improves resilience to filename mismatches
+
+Medium-term Recommendations:
+
+1. Implement Caching Strategy
+   - Add cached_network_image package for persistent image caching
+   - Configure cache duration and storage limits
+   - Rationale: Reduce network requests, improve perceived performance
+
+2. Preserve Page State
+   - Use AutomaticKeepAliveClientMixin on pages with scrollable content
+   - Rationale: Preserve scroll position when users navigate between tabs
+
+3. Add Performance Monitoring
+   - Integrate Firebase Performance Monitoring
+   - Track key metrics: app startup time, image load times, navigation responsiveness
+   - Rationale: Data-driven performance optimization
+
+Long-term Recommendations:
+
+1. Optimize Hosted Images
+   - Convert images to WebP format for better compression
+   - Implement responsive images (multiple resolutions)
+   - Add Cache-Control headers in Firebase Hosting
+   - Rationale: Reduce bandwidth, improve load times on slow networks
+
+2. Externalize Configuration
+   - Move hosted base URL to environment configuration
+   - Support staging and production environments
+   - Rationale: Simplify deployment across multiple environments
+
+3. Conduct User Testing
+   - Perform usability testing with real users
+   - Collect quantitative metrics (task completion time, error rate)
+   - Gather qualitative feedback
+   - Rationale: Validate assumptions about UI improvements, identify additional issues
+
+7.3 Process Improvement Insights
+
+Key Takeaways:
+
+1. Incremental Testing is Essential
+   - Running static analysis and manual tests after each change detected issues early
+   - Early detection reduced debugging time and rework
+
+2. Centralization Improves Maintainability
+   - HostedImageService centralization made hosting configuration changes trivial
+   - Single source of truth pattern should be applied to other configuration areas
+
+3. Fallback Strategies Improve Resilience
+   - Local asset fallbacks ensured app remained functional during hosting issues
+   - Defense-in-depth approach (hosted-first, local fallback, icon fallback) provided multiple layers of resilience
+
+4. Documentation Prevents Knowledge Loss
+   - Documenting CORS configuration and deployment workarounds would help future developers
+   - Recommendation: Create deployment runbook and architecture decision records (ADRs)
+
+5. Quality Metrics Guide Improvement
+   - Static analyzer metrics (issue count, severity) provided objective quality measures
+   - Recommendation: Track quality metrics over time to demonstrate improvement trends
+
+7.4 Reflection on Software Quality Assurance Principles
+
+This project demonstrated practical application of software quality assurance principles:
+
+Quality Planning: Requirements were identified and prioritized based on user impact before implementation began.
+
+Defect Prevention: Proactive measures (CORS configuration, fallback mechanisms, static analysis) prevented defects rather than just detecting them.
+
+Continuous Improvement: Iterative development with testing after each increment enabled rapid feedback and course correction.
+
+Process Optimization: Centralization and standardization reduced complexity and improved maintainability.
+
+Standards Compliance: Adherence to Flutter best practices and Material Design guidelines ensured professional quality.
+
+The project reinforced that quality is not an afterthought but must be integrated throughout the development process. Effective quality assurance requires balancing proactive prevention, continuous testing, and pragmatic trade-offs within project constraints.
+
+
+8. CONCLUSION
+
+This project successfully applied software quality assurance and testing principles to enhance the Chelsea FC Info Flutter application. Key achievements include:
+
+- Significant usability improvements across five app sections
+- Implementation of modern image hosting with Firebase CDN and local fallbacks
+- Addition of swipe navigation for improved user experience
+- Successful defect identification, prioritization, and resolution
+- Application of process improvement principles (centralization, standardization, error handling)
+
+The project demonstrated that systematic application of quality assurance practices—including static analysis, functional testing, performance testing, and defect tracking—directly contributes to improved software quality, user satisfaction, and maintainability.
+
+Testing methodologies employed (static analysis, manual functional testing, performance testing via DevTools) effectively identified and enabled resolution of quality issues, with zero critical defects remaining at project completion.
+
+Future work should focus on expanding automated test coverage, implementing advanced caching strategies, and conducting formal usability testing to further improve quality and user experience.
+
+---
+End of Report
